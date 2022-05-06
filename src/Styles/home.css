@@ -1,0 +1,24 @@
+.container-fluid {
+  /* background-image: url("../assets/dice.png"); */
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: aquamarine;
+}
+.home {
+  margin: 10px auto;
+  width: 50%;
+  padding: 10px;
+}
+.target-wrapper {
+  text-align: center;
+  margin-top: 20%;
+}
+#target {
+  text-shadow: -4px 2px 2px #ce5937;
+  font-size: large;
+  font-weight: bolder;
+}

@@ -1,0 +1,5 @@
+export const actionTypes = {
+  PLAYERS_DATA: "PLAYERS_DATA",
+  ROLL_PLAYER1: "ROLL_PLAYER1",
+  ROLL_PLAYER2: "ROLL_PLAYER2",
+};
