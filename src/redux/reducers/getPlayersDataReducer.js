@@ -1,14 +1,10 @@
 import { actionTypes } from "../constants/action-types";
-const initState = {
-  playerone: "",
-  playertwo: "",
-  target: 0,
-};
+const initState = {};
 export const getPlayersDataReducer = (state = initState, action) => {
+  console.log(action, action.payload);
+  const value = action.payload;
   return {
     ...state,
-    playerone: action.payload.playerone,
-    playertwo: action.payload.playertwo,
-    target: action.payload.target,
+    ...value,
   };
 };

@@ -17,7 +17,6 @@ function Home() {
     } else {
       sethomestate({ ...homestate });
     }
-    console.log(homestate);
   }
   const [homestate, sethomestate] = useState({
     handshake: false,
@@ -26,7 +25,8 @@ function Home() {
     target: 0,
   });
   function sendData() {
-    // dispatch(getPlayersDetails("charan"));
+    console.log(homestate);
+    dispatch(getPlayersDetails(homestate));
   }
   return (
     <div className="container-fluid">

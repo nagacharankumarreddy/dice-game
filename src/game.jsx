@@ -2,21 +2,36 @@ import React from "react";
 import { useState } from "react";
 import { actionTypes } from "./redux/constants/action-types";
 import { setOneScore, setTwoScore } from "./redux/actions/playerActions";
-import { useDispatch } from "react";
+import { useDispatch } from "react-redux";
 
 const Game = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   function handleScores() {
     let player = playerScores.oneturn ? 1 : 2;
     console.log(player, playerScores);
+    if (player === 1) {
+      dispatch(setOneScore(2));
+      setplayerScores({
+        ...playerScores,
+        oneturn: !playerScores.oneturn,
+        twoturn: !playerScores.twoturn,
+      });
+    } else {
+      dispatch(setTwoScore(4));
+      setplayerScores({
+        ...playerScores,
+        oneturn: !playerScores.oneturn,
+        twoturn: !playerScores.twoturn,
+      });
+    }
   }
   const [playerScores, setplayerScores] = useState({
     rolldie: false,
-    player1: 0,
-    player2: 0,
+    diescore: 0,
     oneturn: true,
     twoturn: false,
   });
+
   return (
     <div className="container-fluid">
       <div className="home">
