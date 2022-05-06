@@ -1,9 +1,8 @@
 import { actionTypes } from "../constants/action-types";
 export const getPlayersDetails = (data) => {
-  console.log("data", data);
   return {
     type: actionTypes.PLAYERS_DATA,
-    payload: { ...data },
+    payload: data,
   };
 };
 

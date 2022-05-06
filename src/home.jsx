@@ -20,12 +20,11 @@ function Home() {
   }
   const [homestate, sethomestate] = useState({
     handshake: false,
-    player1: "",
-    player2: "",
+    player1: "naga",
+    player2: "charan",
     target: 0,
   });
   function sendData() {
-    console.log(homestate);
     dispatch(getPlayersDetails(homestate));
   }
   return (
