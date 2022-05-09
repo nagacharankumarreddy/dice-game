@@ -3,11 +3,10 @@ import { useState } from "react";
 import { actionTypes } from "./redux/constants/action-types";
 import { setOneScore, setTwoScore } from "./redux/actions/playerActions";
 import { useDispatch, useSelector } from "react-redux";
-import { withRouter } from "react-router-dom";
 import "./Styles/game.css";
 const Game = () => {
   const dispatch = useDispatch();
-  var names = useSelector((state) => state.getPlayersDataReducer);
+  var homepageData = useSelector((state) => state.getPlayersDataReducer);
   var scores = useSelector((state) => state.rollReducer);
   function handleScores() {
     let player = playerScores.oneturn ? 1 : 2;
@@ -41,7 +40,7 @@ const Game = () => {
       <div className="home">
         <div className="row" style={{ marginTop: "10%", marginBottom: "10%" }}>
           <div className="col-md-4">
-            <h1 className="players">Player 1</h1>
+            <h1 className="players">{homepageData.player1}</h1>
             <h1>
               Score-<span className="score">{scores.player1}</span>
             </h1>
@@ -49,7 +48,7 @@ const Game = () => {
           <div className="col-md-4"></div>
           <div className="col-md-4">
             <div className="form-outline">
-              <h1 className="players">Player 2</h1>
+              <h1 className="players">{homepageData.player2}</h1>
               <h1>
                 Score-<span className="score">{scores.player2}</span>
               </h1>
@@ -70,9 +69,14 @@ const Game = () => {
           style={{ textAlign: "center", marginTop: "10%" }}
         >
           <div className="col">
-            <button className="btn btn-primary w-15 " onClick={handleScores}>
-              Roll Dice
-            </button>
+            {homepageData.target >= scores.player1 ||
+            homepageData.target >= scores.player2 ? (
+              <button className="btn btn-primary w-15 " onClick={handleScores}>
+                Roll Dice
+              </button>
+            ) : (
+              "hey"
+            )}
           </div>
         </div>
       </div>
@@ -80,4 +84,4 @@ const Game = () => {
   );
 };
 
-export default withRouter(Game);
+export default Game;

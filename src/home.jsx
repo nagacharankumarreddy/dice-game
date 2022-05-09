@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import shake from "./assets/start.gif";
 import { getPlayersDetails } from "./redux/actions/playerActions";
 import { useDispatch } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
@@ -95,4 +94,4 @@ function Home() {
   );
 }
 
-export default withRouter(Home);
+export default Home;

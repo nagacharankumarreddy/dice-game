@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  withRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./home";
 import Game from "./game";
@@ -12,10 +7,10 @@ import Game from "./game";
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/game" exact component={Game} />
-      </Switch>
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/game" exact element={<Game />} />
+      </Routes>
     </Router>
   );
 }
