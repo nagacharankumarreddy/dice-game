@@ -3,7 +3,8 @@ import { useState } from "react";
 import { actionTypes } from "./redux/constants/action-types";
 import { setOneScore, setTwoScore } from "./redux/actions/playerActions";
 import { useDispatch, useSelector } from "react-redux";
-
+import { withRouter } from "react-router-dom";
+import "./Styles/game.css";
 const Game = () => {
   const dispatch = useDispatch();
   var names = useSelector((state) => state.getPlayersDataReducer);
@@ -40,34 +41,43 @@ const Game = () => {
       <div className="home">
         <div className="row" style={{ marginTop: "10%", marginBottom: "10%" }}>
           <div className="col-md-4">
-            <h1>Player 1</h1>
-            <h1>Score-{scores.player1}</h1>
+            <h1 className="players">Player 1</h1>
+            <h1>
+              Score-<span className="score">{scores.player1}</span>
+            </h1>
           </div>
           <div className="col-md-4"></div>
           <div className="col-md-4">
             <div className="form-outline">
-              <h1>Player 2</h1>
-              <h1>Score-{scores.player2}</h1>
+              <h1 className="players">Player 2</h1>
+              <h1>
+                Score-<span className="score">{scores.player2}</span>
+              </h1>
             </div>
           </div>
         </div>
         <div className="row">
           <div className="target-wrapper ">
             {playerScores.oneturn ? (
-              <label id="target"> one turn</label>
+              <label id="target"> ONE -turn</label>
             ) : (
-              <label id="target"> two turn</label>
+              <label id="target"> TWO -turn</label>
             )}
           </div>
         </div>
-        <div className="row" style={{ textAlign: "center", marginTop: "10%" }}>
-          <button className="btn btn-primary" onClick={handleScores}>
-            Roll Dice
-          </button>
+        <div
+          className="row text-center"
+          style={{ textAlign: "center", marginTop: "10%" }}
+        >
+          <div className="col">
+            <button className="btn btn-primary w-15 " onClick={handleScores}>
+              Roll Dice
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Game;
+export default withRouter(Game);

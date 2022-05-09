@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter,
+} from "react-router-dom";
 
 import Home from "./home";
 import Game from "./game";

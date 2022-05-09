@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import shake from "./assets/start.gif";
 import { getPlayersDetails } from "./redux/actions/playerActions";
 import { useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
+
 function Home() {
   const dispatch = useDispatch();
   function handleChange(event) {
@@ -20,8 +22,8 @@ function Home() {
   }
   const [homestate, sethomestate] = useState({
     handshake: false,
-    player1: "naga",
-    player2: "charan",
+    player1: "",
+    player2: "",
     target: 0,
   });
   function sendData() {
@@ -93,4 +95,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default withRouter(Home);
