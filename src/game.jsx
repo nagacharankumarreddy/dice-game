@@ -99,7 +99,7 @@ const Game = () => {
               id="rollDice"
               onClick={handleScores}
             >
-              Roll Dice
+              Roll Dice: Target-{homepageData.target}
             </button>
             <h1 id="winner"></h1>
           </div>
