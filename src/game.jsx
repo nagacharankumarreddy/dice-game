@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { actionTypes } from "./redux/constants/action-types";
 import { setOneScore, setTwoScore } from "./redux/actions/playerActions";
@@ -34,6 +34,21 @@ const Game = () => {
     oneturn: true,
     twoturn: false,
   });
+  useEffect(() => {
+    if (
+      scores.player1 >= homepageData.target ||
+      scores.player2 >= homepageData.target
+    ) {
+      let win =
+        scores.player1 >= scores.player2
+          ? homepageData.player1
+          : homepageData.player2;
+
+      document.getElementById("rollDice").style.display = "none";
+      document.getElementById("turns").style.display = "none";
+      document.getElementById("winner").innerText = win + " Won ";
+    }
+  }, [playerScores]);
 
   return (
     <div className="container-fluid">
@@ -56,11 +71,11 @@ const Game = () => {
           </div>
         </div>
         <div className="row">
-          <div className="target-wrapper ">
+          <div className="target-wrapper " id="turns">
             {playerScores.oneturn ? (
-              <label id="target"> ONE -turn</label>
+              <label id="target"> {homepageData.player1} -turn</label>
             ) : (
-              <label id="target"> TWO -turn</label>
+              <label id="target"> {homepageData.player2} -turn</label>
             )}
           </div>
         </div>
@@ -69,14 +84,14 @@ const Game = () => {
           style={{ textAlign: "center", marginTop: "10%" }}
         >
           <div className="col">
-            {homepageData.target >= scores.player1 ||
-            homepageData.target >= scores.player2 ? (
-              <button className="btn btn-primary w-15 " onClick={handleScores}>
-                Roll Dice
-              </button>
-            ) : (
-              "hey"
-            )}
+            <button
+              className="btn btn-primary w-15 "
+              id="rollDice"
+              onClick={handleScores}
+            >
+              Roll Dice
+            </button>
+            <h1 id="winner"></h1>
           </div>
         </div>
       </div>
