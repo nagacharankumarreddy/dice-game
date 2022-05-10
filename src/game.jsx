@@ -12,14 +12,18 @@ const Game = () => {
     let player = playerScores.oneturn ? 1 : 2;
     var diceRoll;
     if (player === 1) {
-      diceRoll = Math.floor(Math.random() * 6) + 1;
-      document.getElementById("oneDiceScore").innerText = "Roll -" + diceRoll;
-      dispatch(setOneScore(diceRoll));
+      do {
+        diceRoll = Math.floor(Math.random() * 6) + 3;
+        document.getElementById("oneDiceScore").innerText = "Roll -" + diceRoll;
+        dispatch(setOneScore(diceRoll));
+      } while (diceRoll == 6);
       UpdateTurns();
     } else {
-      diceRoll = Math.floor(Math.random() * 6) + 1;
-      document.getElementById("twoDiceScore").innerText = "Roll -" + diceRoll;
-      dispatch(setTwoScore(diceRoll));
+      do {
+        diceRoll = Math.floor(Math.random() * 6) + 3;
+        document.getElementById("twoDiceScore").innerText = "Roll -" + diceRoll;
+        dispatch(setTwoScore(diceRoll));
+      } while (diceRoll == 6);
       UpdateTurns();
     }
   }
