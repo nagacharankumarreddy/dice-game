@@ -10,8 +10,10 @@ const Game = () => {
   var scores = useSelector((state) => state.rollReducer);
   function handleScores() {
     let player = playerScores.oneturn ? 1 : 2;
+    var diceRoll;
     if (player === 1) {
-      var diceRoll = Math.floor(Math.random() * 6) + 1;
+      diceRoll = Math.floor(Math.random() * 6) + 1;
+      document.getElementById("diceScore").innerText = diceRoll;
       dispatch(setOneScore(diceRoll));
       setplayerScores({
         ...playerScores,
@@ -19,7 +21,9 @@ const Game = () => {
         twoturn: !playerScores.twoturn,
       });
     } else {
-      var diceRoll = Math.floor(Math.random() * 6) + 1;
+      diceRoll = Math.floor(Math.random() * 6) + 1;
+      document.getElementById("diceScore").innerText = diceRoll;
+
       dispatch(setTwoScore(diceRoll));
       setplayerScores({
         ...playerScores,
@@ -77,6 +81,7 @@ const Game = () => {
             ) : (
               <label id="target"> {homepageData.player2} -turn</label>
             )}
+            <label id="diceScore"></label>
           </div>
         </div>
         <div
