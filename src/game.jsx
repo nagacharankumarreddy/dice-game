@@ -13,27 +13,26 @@ const Game = () => {
     var diceRoll;
     if (player === 1) {
       diceRoll = Math.floor(Math.random() * 6) + 1;
-      document.getElementById("diceScore").innerText = diceRoll;
+      document.getElementById("oneDiceScore").innerText = "Roll -" + diceRoll;
       dispatch(setOneScore(diceRoll));
-      setplayerScores({
-        ...playerScores,
-        oneturn: !playerScores.oneturn,
-        twoturn: !playerScores.twoturn,
-      });
+      UpdateTurns();
     } else {
       diceRoll = Math.floor(Math.random() * 6) + 1;
-      document.getElementById("diceScore").innerText = diceRoll;
-
+      document.getElementById("twoDiceScore").innerText = "Roll -" + diceRoll;
       dispatch(setTwoScore(diceRoll));
-      setplayerScores({
-        ...playerScores,
-        oneturn: !playerScores.oneturn,
-        twoturn: !playerScores.twoturn,
-      });
+      UpdateTurns();
     }
   }
+  function UpdateTurns() {
+    setplayerScores({
+      ...playerScores,
+      oneturn: !playerScores.oneturn,
+      twoturn: !playerScores.twoturn,
+    });
+  }
+
   const [playerScores, setplayerScores] = useState({
-    rolldie: false,
+    rolldie: "",
     diescore: 0,
     oneturn: true,
     twoturn: false,
@@ -63,6 +62,7 @@ const Game = () => {
             <h1>
               Score-<span className="score">{scores.player1}</span>
             </h1>
+            <h3 id="oneDiceScore"></h3>
           </div>
           <div className="col-md-4"></div>
           <div className="col-md-4">
@@ -71,6 +71,7 @@ const Game = () => {
               <h1>
                 Score-<span className="score">{scores.player2}</span>
               </h1>
+              <h3 id="twoDiceScore"></h3>
             </div>
           </div>
         </div>
@@ -81,7 +82,7 @@ const Game = () => {
             ) : (
               <label id="target"> {homepageData.player2} -turn</label>
             )}
-            <label id="diceScore"></label>
+            <h3 id="diceScore"></h3>
           </div>
         </div>
         <div
