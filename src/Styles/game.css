@@ -14,3 +14,42 @@
     -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
   color: #ffffff;
 }
+
+#target {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.target-wrapper {
+  margin-top: 20px;
+}
+.dice {
+  font-size: 3rem;
+  display: inline-block;
+}
+
+.rolling {
+  animation: shakeDice 0.5s ease-in-out;
+}
+
+@keyframes shakeDice {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  20% {
+    transform: rotate(15deg) scale(1.1);
+  }
+  40% {
+    transform: rotate(-15deg) scale(1.1);
+  }
+  60% {
+    transform: rotate(10deg) scale(1.05);
+  }
+  80% {
+    transform: rotate(-10deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}

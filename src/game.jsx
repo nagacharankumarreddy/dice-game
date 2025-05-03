@@ -1,107 +1,129 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { actionTypes } from "./redux/constants/action-types";
-import { setOneScore, setTwoScore } from "./redux/actions/playerActions";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setOneScore, setTwoScore } from "./redux/actions/playerActions";
 import "./Styles/game.css";
+
 const Game = () => {
   const dispatch = useDispatch();
-  var homepageData = useSelector((state) => state.getPlayersDataReducer);
-  var scores = useSelector((state) => state.rollReducer);
-  function handleScores() {
-    let player = playerScores.oneturn ? 1 : 2;
-    var diceRoll;
-    if (player === 1) {
-      do {
-        diceRoll = Math.floor(Math.random() * 6) + 3;
-        document.getElementById("oneDiceScore").innerText = "Roll -" + diceRoll;
-        dispatch(setOneScore(diceRoll));
-      } while (diceRoll == 6);
-      UpdateTurns();
-    } else {
-      do {
-        diceRoll = Math.floor(Math.random() * 6) + 3;
-        document.getElementById("twoDiceScore").innerText = "Roll -" + diceRoll;
-        dispatch(setTwoScore(diceRoll));
-      } while (diceRoll == 6);
-      UpdateTurns();
-    }
-  }
-  function UpdateTurns() {
-    setplayerScores({
-      ...playerScores,
-      oneturn: !playerScores.oneturn,
-      twoturn: !playerScores.twoturn,
-    });
-  }
+  const homepageData = useSelector((state) => state.getPlayersDataReducer);
+  const scores = useSelector((state) => state.rollReducer);
 
   const [playerScores, setplayerScores] = useState({
-    rolldie: "",
-    diescore: 0,
     oneturn: true,
     twoturn: false,
   });
+
+  const [diceAnimation, setDiceAnimation] = useState({
+    oneRolling: false,
+    twoRolling: false,
+    oneScore: null,
+    twoScore: null,
+  });
+
+  const handleScores = () => {
+    const player = playerScores.oneturn ? 1 : 2;
+
+    setDiceAnimation((prev) => ({
+      ...prev,
+      [player === 1 ? "oneRolling" : "twoRolling"]: true,
+    }));
+
+    setTimeout(() => {
+      const roll = Math.floor(Math.random() * 6) + 1;
+
+      if (player === 1) {
+        dispatch(setOneScore(roll));
+        setDiceAnimation((prev) => ({
+          ...prev,
+          oneRolling: false,
+          oneScore: roll,
+        }));
+      } else {
+        dispatch(setTwoScore(roll));
+        setDiceAnimation((prev) => ({
+          ...prev,
+          twoRolling: false,
+          twoScore: roll,
+        }));
+      }
+
+      setplayerScores((prev) => ({
+        oneturn: !prev.oneturn,
+        twoturn: !prev.twoturn,
+      }));
+    }, 600);
+  };
+
   useEffect(() => {
     if (
       scores.player1 >= homepageData.target ||
       scores.player2 >= homepageData.target
     ) {
-      let win =
+      let winner =
         scores.player1 >= scores.player2
           ? homepageData.player1
           : homepageData.player2;
-
       document.getElementById("rollDice").style.display = "none";
       document.getElementById("turns").style.display = "none";
-      document.getElementById("winner").innerText = win + " Won ";
+      document.getElementById("winner").innerText = winner + " Won!";
     }
-  }, [playerScores]);
+  }, [scores, homepageData]);
 
   return (
     <div className="container-fluid">
       <div className="home">
-        <div className="row" style={{ marginTop: "10%", marginBottom: "10%" }}>
-          <div className="col-md-4">
+        <div className="row text-center text-md-start mt-5 mb-5">
+          <div className="col-12 col-md-5 mb-4 mb-md-0">
             <h1 className="players">{homepageData.player1}</h1>
-            <h1>
-              Score-<span className="score">{scores.player1}</span>
-            </h1>
-            <h3 id="oneDiceScore"></h3>
+            <h2>
+              Score: <span className="score">{scores.player1}</span>
+            </h2>
+            <div
+              className={`dice ${diceAnimation.oneRolling ? "rolling" : ""}`}
+              id="oneDiceScore"
+            >
+              🎲 {diceAnimation.oneScore || ""}
+            </div>
           </div>
-          <div className="col-md-4"></div>
-          <div className="col-md-4">
-            <div className="form-outline">
-              <h1 className="players">{homepageData.player2}</h1>
-              <h1>
-                Score-<span className="score">{scores.player2}</span>
-              </h1>
-              <h3 id="twoDiceScore"></h3>
+          <div className="col-12 col-md-2 d-none d-md-block" />
+          <div className="col-12 col-md-5">
+            <h1 className="players">{homepageData.player2}</h1>
+            <h2>
+              Score: <span className="score">{scores.player2}</span>
+            </h2>
+            <div
+              className={`dice ${diceAnimation.twoRolling ? "rolling" : ""}`}
+              id="twoDiceScore"
+            >
+              🎲 {diceAnimation.twoScore || ""}
             </div>
           </div>
         </div>
+
         <div className="row">
-          <div className="target-wrapper " id="turns">
-            {playerScores.oneturn ? (
-              <label id="target"> {homepageData.player1} -turn</label>
-            ) : (
-              <label id="target"> {homepageData.player2} -turn</label>
-            )}
-            <h3 id="diceScore"></h3>
+          <div
+            className="col-12 target-wrapper text-start text-md-center"
+            id="turns"
+          >
+            <label id="target">
+              {playerScores.oneturn
+                ? homepageData.player1
+                : homepageData.player2}
+              's Turn
+            </label>
           </div>
         </div>
-        <div
-          className="row text-center"
-          style={{ textAlign: "center", marginTop: "10%" }}
-        >
+
+        <div className="row text-center mt-5">
           <div className="col">
             <button
-              className="btn btn-primary w-15 "
+              className="btn btn-primary px-4"
               id="rollDice"
               onClick={handleScores}
             >
-              Roll Dice: Target-{homepageData.target}
+              🎲 Roll Dice (Target: {homepageData.target})
             </button>
-            <h1 id="winner"></h1>
+            <h1 id="winner" className="mt-4"></h1>
           </div>
         </div>
       </div>

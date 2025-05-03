@@ -1,15 +1,15 @@
+import { Route, HashRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Home from "./home";
 import Game from "./game";
+import Home from "./home";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/dice-game" exact element={<Home />} />
-        <Route path="/game" exact element={<Game />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/game" element={<Game />} />
       </Routes>
     </Router>
   );
