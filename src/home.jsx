@@ -22,42 +22,57 @@ function Home() {
     }));
   }
 
-  function sendData() {
-    dispatch(getPlayersDetails(homestate));
-  }
+  const sendData = () => {
+    const data = {
+      player1: homestate.player1,
+      player2: homestate.player2,
+      target: homestate.target,
+    };
+    dispatch(getPlayersDetails(data));
+  };
 
   return (
     <div className="container-fluid">
       <div className="home">
-        <div className="row">
-          <div className="col-md-6 col-12 mb-3">
-            <h4>Player 1</h4>
-            <label className="form-label">Name</label>
-            <input
-              type="text"
-              id="player1"
-              className="form-control"
-              onChange={handleChange}
-              placeholder="Enter Player 1 Name"
-            />
+        <div className="home-header">
+          <span className="badge-dice">🎲</span>
+          <h1>Dice Duel</h1>
+          <p>Set up your players and race to the target score</p>
+        </div>
+
+        <div className="row g-3">
+          <div className="col-md-6 col-12">
+            <div className="player-input-card">
+              <h4>🙂 Player 1</h4>
+              <label className="form-label">Name</label>
+              <input
+                type="text"
+                id="player1"
+                className="form-control"
+                onChange={handleChange}
+                placeholder="Enter Player 1 Name"
+              />
+            </div>
           </div>
-          <div className="col-md-6 col-12 mb-3">
-            <h4>Player 2</h4>
-            <label className="form-label">Name</label>
-            <input
-              type="text"
-              id="player2"
-              className="form-control"
-              onChange={handleChange}
-              placeholder="Enter Player 2 Name"
-            />
+          <div className="col-md-6 col-12">
+            <div className="player-input-card">
+              <h4>🙂 Player 2</h4>
+              <label className="form-label">Name</label>
+              <input
+                type="text"
+                id="player2"
+                className="form-control"
+                onChange={handleChange}
+                placeholder="Enter Player 2 Name"
+              />
+            </div>
           </div>
         </div>
 
         <div className="row justify-content-md-center">
           <div className="col-12 col-md-6">
             <div className="target-wrapper text-start text-md-center">
-              <label id="target">Target:</label>
+              <label id="target">Target Score</label>
               <input
                 type="number"
                 id="targetscore"

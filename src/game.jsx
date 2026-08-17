@@ -68,34 +68,60 @@ const Game = () => {
       document.getElementById("winner").innerText = winner + " Won!";
     }
   }, [scores, homepageData]);
-
+  useEffect(() => {
+    console.log(homepageData);
+  });
   return (
     <div className="container-fluid">
       <div className="home">
         <div className="row text-center text-md-start mt-5 mb-5">
           <div className="col-12 col-md-5 mb-4 mb-md-0">
-            <h1 className="players">{homepageData.player1}</h1>
-            <h2>
-              Score: <span className="score">{scores.player1}</span>
-            </h2>
             <div
-              className={`dice ${diceAnimation.oneRolling ? "rolling" : ""}`}
-              id="oneDiceScore"
+              className={`player-card ${
+                playerScores.oneturn ? "active-turn" : ""
+              }`}
             >
-              🎲 {diceAnimation.oneScore || ""}
+              <span className="turn-tag">Your Turn</span>
+              <h1 className="players">
+                {homepageData?.player1 || "Player 1"}
+              </h1>
+              <h2>
+                Score:{" "}
+                <span className="score" key={scores.player1}>
+                  {scores.player1}
+                </span>
+              </h2>
+              <div
+                className={`dice ${diceAnimation.oneRolling ? "rolling" : ""}`}
+                id="oneDiceScore"
+              >
+                🎲 {diceAnimation.oneScore || ""}
+              </div>
             </div>
           </div>
           <div className="col-12 col-md-2 d-none d-md-block" />
           <div className="col-12 col-md-5">
-            <h1 className="players">{homepageData.player2}</h1>
-            <h2>
-              Score: <span className="score">{scores.player2}</span>
-            </h2>
             <div
-              className={`dice ${diceAnimation.twoRolling ? "rolling" : ""}`}
-              id="twoDiceScore"
+              className={`player-card ${
+                playerScores.twoturn ? "active-turn" : ""
+              }`}
             >
-              🎲 {diceAnimation.twoScore || ""}
+              <span className="turn-tag">Your Turn</span>
+              <h1 className="players">
+                {homepageData?.player2 || "Player 2"}
+              </h1>
+              <h2>
+                Score:{" "}
+                <span className="score" key={scores.player2}>
+                  {scores.player2}
+                </span>
+              </h2>
+              <div
+                className={`dice ${diceAnimation.twoRolling ? "rolling" : ""}`}
+                id="twoDiceScore"
+              >
+                🎲 {diceAnimation.twoScore || ""}
+              </div>
             </div>
           </div>
         </div>
@@ -106,22 +132,25 @@ const Game = () => {
             id="turns"
           >
             <label id="target">
-              {playerScores.oneturn
-                ? homepageData.player1
-                : homepageData.player2}
-              's Turn
+              {homepageData?.player1 && homepageData?.player2
+                ? `${
+                    playerScores.oneturn
+                      ? homepageData.player1
+                      : homepageData.player2
+                  }'s Turn`
+                : "Loading..."}
             </label>
           </div>
         </div>
 
         <div className="row text-center mt-5">
-          <div className="col">
+          <div className="col d-flex flex-column align-items-center">
             <button
               className="btn btn-primary px-4"
               id="rollDice"
               onClick={handleScores}
             >
-              🎲 Roll Dice (Target: {homepageData.target})
+              🎲 Roll Dice (Target: {homepageData?.target || 0})
             </button>
             <h1 id="winner" className="mt-4"></h1>
           </div>

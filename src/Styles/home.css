@@ -1,61 +1,285 @@
 .container-fluid {
+  position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aquamarine;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  padding: 24px 16px;
+  overflow: hidden;
+  background: linear-gradient(
+    -45deg,
+    var(--color-bg-start),
+    var(--color-bg-mid),
+    var(--color-accent-strong),
+    var(--color-bg-end)
+  );
+  background-size: 300% 300%;
+  animation: gradientShift 14s ease infinite;
+}
+
+.container-fluid::before,
+.container-fluid::after {
+  content: "🎲";
+  position: absolute;
+  font-size: 3.5rem;
+  opacity: 0.16;
+  pointer-events: none;
+  animation: floatDice 7s ease-in-out infinite;
+  z-index: 0;
+  filter: grayscale(1) brightness(2);
+}
+
+.container-fluid::before {
+  top: 8%;
+  left: 8%;
+  animation-delay: 0s;
+}
+
+.container-fluid::after {
+  bottom: 10%;
+  right: 8%;
+  font-size: 4.5rem;
+  animation-delay: 2.5s;
 }
 
 .home {
-  background-color: white;
-  border-radius: 12px;
-  padding: 20px;
-  width: 90%;
-  max-width: 800px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  width: 100%;
+  max-width: 760px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+  animation: fadeInUp 0.6s ease;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.home-header .badge-dice {
+  font-size: 2.2rem;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.home-header h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.home-header p {
+  color: var(--color-text-muted);
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+}
+
+.player-input-card {
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px 18px 14px;
+  height: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.player-input-card:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.player-input-card h4 {
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+input[type="text"],
+input[type="number"] {
+  margin-top: 5px;
+  padding: 12px 14px;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.7;
 }
 
 #target {
-  text-shadow: -4px 2px 2px #ce5937;
-  font-size: 1.2rem;
-  font-weight: bolder;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .target-wrapper {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 24px;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-soft),
+    var(--color-surface-soft)
+  );
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px;
 }
 
-input[type="text"] {
-  margin-top: 5px;
-  padding: 10px;
-  width: 100%;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
 .target-wrapper input[type="number"] {
-  width: 120px;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-left: 10px;
+  width: 140px;
+  max-width: 100%;
+  padding: 10px 12px;
+  margin-left: 0;
+  margin-top: 8px;
+  display: inline-block;
+  text-align: center;
+  font-weight: 700;
 }
 
-button {
+@media (min-width: 768px) {
+  .target-wrapper input[type="number"] {
+    margin-left: 12px;
+    margin-top: 0;
+  }
+}
+
+button.btn-primary {
   margin-top: 15px;
-  padding: 10px 30px;
-  font-weight: bold;
-  border-radius: 8px;
+  padding: 14px 36px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-family: var(--font-sans);
+  border-radius: 999px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    var(--color-accent-strong) 100%
+  );
+  box-shadow: 0 6px 16px rgba(124, 92, 240, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-#target {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-right: 10px;
+
+button.btn-primary:hover,
+button.btn-primary:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(124, 92, 240, 0.45);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    var(--color-accent-strong) 100%
+  );
+  color: #fff;
 }
-.target-wrapper input[type="number"] {
-  max-width: 100px;
+
+button.btn-primary:active {
+  transform: translateY(0) scale(0.97);
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes floatDice {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-22px) rotate(15deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 576px) {
+  .home {
+    padding: 24px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .container-fluid {
+    padding: 16px 10px;
+    align-items: flex-start;
+  }
+
+  .home-header h1 {
+    font-size: 1.35rem;
+  }
+
+  .container-fluid::before {
+    font-size: 2.2rem;
+    top: 4%;
+    left: 4%;
+  }
+
+  .container-fluid::after {
+    font-size: 2.8rem;
+    bottom: 4%;
+    right: 4%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container-fluid,
+  .container-fluid::before,
+  .container-fluid::after,
+  .home {
+    animation: none;
+  }
 }
